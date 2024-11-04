@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,  Field, conint
 from typing import Optional, List
 from datetime import datetime
 
@@ -7,7 +7,7 @@ class MovieBase(BaseModel):
     title: str
     description: Optional[str] = None
     release_date: Optional[datetime] = None
-    language: str
+    language: Optional[str]
 
 class MovieCreate(MovieBase):
     title: str
@@ -59,7 +59,7 @@ class RatingBase(BaseModel):
     review: Optional[str] = None
 
 class RatingCreate(RatingBase):
-    rating: int 
+    rating: conint(ge=1, le=7) 
     review: Optional[str]  
     movie_id: int 
 
